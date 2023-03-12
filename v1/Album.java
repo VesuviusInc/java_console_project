@@ -2,6 +2,9 @@ package Klasse_12.AEP.Eichner.SWProjekt.v1;
 
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.Scanner;
+
+import javax.swing.ViewportLayout;
 
 public class Album implements Serializable{
     private String name;
@@ -50,5 +53,52 @@ public class Album implements Serializable{
             i++;
         }
         return i;
+    }
+
+    public void playAlbum(){
+        Scanner ein = new Scanner(System.in);
+        boolean runner = true;
+        int anzahl = this.getAnzahlSongs();
+        int s_id = 0;
+        int return_value = 0;
+        int cli_num;
+        do{
+            System.out.println("\n........Song................"); 
+            System.out.print(songlist.get(s_id).getName() + " (" + songlist.get(s_id).getLaenge() + ")");
+            System.out.println("\n............................"); 
+
+            System.out.println("\n------------------------------"); 
+            System.out.println("Nächster Song: 1");
+            System.out.println("Vorheriger Song: 2");
+            System.out.println("Anderes Album(Abbruch): 3");
+            System.out.println("\n------------------------------"); 
+            System.out.print("\nAuswahl: "); 
+
+            cli_num = ein.nextInt();
+            ein.nextLine();
+            switch (cli_num) {
+                case 1:
+                    if(s_id == anzahl-1){
+                        s_id = 0;
+                    }
+                    else{
+                        s_id++;
+                    }
+                    break;
+                case 2:
+                    if(s_id == 0){
+                        s_id = anzahl-1;
+                    }
+                    else{
+                        s_id--;
+                    }
+                    break;
+                case 3:
+                    runner = false;
+                    break;
+                default:
+                    break;
+            }
+        }while(runner);
     }
 }

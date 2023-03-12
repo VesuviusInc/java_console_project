@@ -29,7 +29,7 @@ public class Run {
             System.out.println("Alle Alben ausgeben: 5");
             System.out.println("Song einem Album hinzufügen: 6");
             System.out.println("Alle Songs eines Albums ausgeben: 7");
-            System.out.println("Album abspielen: 8");
+            System.out.println("Player starten: 8");
             System.out.println("Alle Daten speichern: 9");
             System.out.println("Daten aus dem Speicher lesen: 10");
             System.out.println("Abbruch: 0");
@@ -145,12 +145,12 @@ public class Run {
                         System.out.print("Bitte ID des Albums angeben (Abbruch: 0): ");
                         int id = ein.nextInt();
                         ein.nextLine();
-                        Album albumAuswahl;
+                        Album albumAuswahl1;
                         Interpret interpretAuswahl2 = null;
                         while(help3 && id != 0){
                             for(Album album : albumList){
                                 if(album.getID() == id){
-                                    albumAuswahl = album;
+                                    albumAuswahl1 = album;
                                     System.out.println("\nBitte Name des Songs: ");
                                     String nameSong = ein.nextLine();
                                     System.out.println("\nBitte Laenge des Songs: ");
@@ -177,7 +177,7 @@ public class Run {
                                             }
                                         }
                                         else{
-                                            albumAuswahl.addSong(new Song(nameSong, laengeSong, interpretAuswahl2));
+                                            albumAuswahl1.addSong(new Song(nameSong, laengeSong, interpretAuswahl2));
                                             interpretAuswahl2.addSong();
                                             help4 = false;
                                             help3 = false;
@@ -214,37 +214,51 @@ public class Run {
                     }
                     break;
                 case 8:
-                    Boolean help8 = false;
                     Boolean help81 = false;
-                    System.out.println("\nID's und Namen der Alben: ");
-                    for(Album album : albumList){
-                        album.getNameAndID();
-                        help5 = true;
-                    }
-                    if(!help8){
-                        System.out.println("Bitte ersten ein Album erstellen!");
-                        System.out.println("");
-                    }
-                    else{
-                        System.out.println("");
-                        System.out.print("Bitte ID des Albums angeben (Abbruch: 0): ");
-                        int id = ein.nextInt();
-                        ein.nextLine();
-                        while(id != 0){
+                    do{
+                        Boolean help8 = false;
+                        Boolean help82 = false;
+                        System.out.println("\nID's und Namen der Alben: ");
+                        for(Album album : albumList){
+                            album.getNameAndID();
+                            help8 = true;
+                        }
+                        if(!help8){
+                            System.out.println("Bitte ersten ein Album erstellen!");
+                            System.out.println("");
+                        }
+                        else{
+                            System.out.println("");
+                            System.out.print("Bitte ID des Albums angeben (Abbruch: 0): ");
+                            int id = ein.nextInt();
+                            ein.nextLine();
                             Album albumAuswahl;
-                            if(id != 0){
-                                for(Album album : albumList){
-                                    if(album.getID() == id){
-                                        albumAuswahl = album;
-                                        help81 = true;
+                            do{
+                                if(id != 0){
+                                    for(Album album : albumList){
+                                        if(album.getID() == id){
+                                            albumAuswahl = album;
+                                            albumAuswahl.playAlbum();
+                                            help81 = true;
+                                            help82 = true;
+                                        }
                                     }
                                 }
-                                if(help81){
-
+                                else{
+                                    if(id == 0){
+                                        help81 = false;
+                                        help82 = true;
+                                    }
                                 }
-                            }
+                                if(!help82){
+                                    System.out.println("");
+                                    System.out.print("Bitte existierende ID des Albums angeben (Abbruch: 0): ");
+                                    id = ein.nextInt();
+                                    ein.nextLine();
+                                }
+                            }while(!help82);
                         }
-                    }
+                    }while(help81);
                     break;
                 case 9:
                     ObjectOutputStream ser = new ObjectOutputStream(new FileOutputStream(file));
@@ -257,6 +271,8 @@ public class Run {
                     albumList = (ArrayList<Album>) deser.readObject();
                     interpretList = (ArrayList<Interpret>) deser.readObject();
                     deser.close();
+                    break;
+                case 11:
                     break;
                 default:
                     break;

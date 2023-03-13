@@ -7,6 +7,7 @@ public class Song implements Serializable{
     private float laenge;
     private Interpret interpret;
 
+    // Konstruktor
     public Song(String titel, float laenge, Interpret interpret){
         this.titel = titel;
         this.laenge = laenge;
@@ -14,14 +15,17 @@ public class Song implements Serializable{
         this.interpret.addSong();
     }
 
+    // Rückgabe des Namen des Songs
     public String getName(){
         return this.titel;
     }
 
+    // Rückgabe der Länge des Songs
     public float getLaenge(){
         return this.laenge;
     }
-
+    
+    // Rückgabe des Interpreten des Songs
     public Interpret getInterpret(){
         return this.interpret;
     }

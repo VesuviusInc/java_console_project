@@ -55,7 +55,7 @@ public class Album implements Serializable{
         }
     }
 
-    // Rüchgabe der Anzahl des Songs eines Albums
+    // Rückgabe der Anzahl des Songs eines Albums
     public int getAnzahlSongs(){
         int i = 0;
         for (Song song: songlist){
@@ -64,7 +64,7 @@ public class Album implements Serializable{
         return i;
     }
 
-    // Player eines Albums
+    // Rückgabe der Songlist
     public LinkedList<Song> getSongListArray(){
         return songlist;
     }
